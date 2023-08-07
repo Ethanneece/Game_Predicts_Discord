@@ -7,17 +7,23 @@ import {
   MessageComponentTypes,
   ButtonStyleTypes,
 } from 'discord-interactions';
-import { VerifyDiscordRequest, getRandomEmoji, displayTeams } from './utils.js';
+import { displayTeams, verifyDiscordRequest } from './utils.js';
 
-import {db_connect, db_log, db_createUser, db_makeVote} from './mongodb.js'
+import { db_connect, db_log, db_makeVote, findMatchWinners, updateMatches } from './mongodb.js'
+import { setUp } from './Routes/setUp.js'
+import { makeVote } from './Routes/vote.js'
 
 
 // Create an express app
 const app = express();
 
+// Verify that the request comes from discord. 
+app.use(express.json({ verify: verifyDiscordRequest(process.env.PUBLIC_KEY) }))
 
 // Connect to the database.
-db_connect()
+await db_connect()
+await updateMatches()
+findMatchWinners()
 
 
 /**
@@ -25,9 +31,8 @@ db_connect()
  */
 app.post('/interactions', async function (req, res) {
   // Interaction type and data
-  const { type, id, data } = req.body;
 
-  console.log(req.body)
+  const { type, data } = req.body;
 
 
   /**
@@ -39,37 +44,22 @@ app.post('/interactions', async function (req, res) {
 
   /**
    * Handle slash command requests
-   * See https://discord.com/developers/docs/interactions/application-commands#slash-commands
    */
   if (type === InteractionType.APPLICATION_COMMAND) {
     const { name } = data;
-    
+
     //Testing 
     if (name === 'hello') {
 
-      let rtn = "# LCS Upcoming Matches \n"
-      res.send({
-        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-        data: {
-          content: rtn,
-        },
-      });
-
-      displayTeams(req.body.channel_id)
+      setUp(req, res)
+      return;
     }
   }
 
   if (type === InteractionType.MESSAGE_COMPONENT) {
-    let {custom_id} = data
-    let username = req.body.member.user.username
 
-    db_makeVote(username, custom_id)
-    res.send({
-      type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-      data: { 
-        content: `you voted for ${custom_id}`
-      }
-    })
+    makeVote(req, res)
+    return 
   }
 });
 

@@ -1,0 +1,25 @@
+{
+    "users": [
+        {
+            "user": {
+                "username": "user1",
+                "records": []
+            }
+        },
+        {
+            "user": {
+                "username": "user2",
+                "records": [
+                    {
+                        "matchID": 1,
+                        "vote": "TSM"
+                    },
+                    {
+                        "matchID": 2,
+                        "vote": "CLG"
+                    }
+                ]
+            }
+        }
+    ]
+}

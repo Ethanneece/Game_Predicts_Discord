@@ -1,12 +1,14 @@
 import mongoose from 'mongoose'
 
 const Match = mongoose.model('Match', new mongoose.Schema({
-    matchId: Number, 
-    Team1, String, 
-    Team2, String,
-    Votes : [{
-        Player: String, 
-        Team: String 
+    MatchId: String,
+    Team1: String,
+    Team2: String,
+    Winner: String,
+    "DateTime UTC": String,
+    Votes: [{
+        username: String,
+        Team: String
     }]
 }))
 

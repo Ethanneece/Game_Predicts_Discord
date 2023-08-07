@@ -1,1 +1,124 @@
-{"cargoquery":[{"title":{"Team1":"100 Thieves","Team2":"Golden Guardians","DateTime UTC":"2023-07-21 23:00:00","DateTime UTC__precision":"0"}},{"title":{"Team1":"100 Thieves","Team2":"NRG","DateTime UTC":"2023-07-20 23:00:00","DateTime UTC__precision":"0"}},{"title":{"Team1":"Cloud9","Team2":"FlyQuest","DateTime UTC":"2023-07-22 01:00:00","DateTime UTC__precision":"0"}},{"title":{"Team1":"Dignitas","Team2":"100 Thieves","DateTime UTC":"2023-07-20 01:00:00","DateTime UTC__precision":"0"}},{"title":{"Team1":"Evil Geniuses.NA","Team2":"Team Liquid","DateTime UTC":"2023-07-21 00:00:00","DateTime UTC__precision":"0"}},{"title":{"Team1":"Evil Geniuses.NA","Team2":"TSM","DateTime UTC":"2023-07-21 22:00:00","DateTime UTC__precision":"0"}},{"title":{"Team1":"FlyQuest","Team2":"Immortals","DateTime UTC":"2023-07-20 21:00:00","DateTime UTC__precision":"0"}},{"title":{"Team1":"FlyQuest","Team2":"TSM","DateTime UTC":"2023-07-19 23:00:00","DateTime UTC__precision":"0"}},{"title":{"Team1":"Golden Guardians","Team2":"Dignitas","DateTime UTC":"2023-07-21 01:00:00","DateTime UTC__precision":"0"}},{"title":{"Team1":"Golden Guardians","Team2":"Team Liquid","DateTime UTC":"2023-07-19 22:00:00","DateTime UTC__precision":"0"}},{"title":{"Team1":"Immortals","Team2":"Evil Geniuses.NA","DateTime UTC":"2023-07-19 21:00:00","DateTime UTC__precision":"0"}},{"title":{"Team1":"Immortals","Team2":"NRG","DateTime UTC":"2023-07-21 21:00:00","DateTime UTC__precision":"0"}},{"title":{"Team1":"NRG","Team2":"Cloud9","DateTime UTC":"2023-07-20 00:00:00","DateTime UTC__precision":"0"}},{"title":{"Team1":"Team Liquid","Team2":"Dignitas","DateTime UTC":"2023-07-22 00:00:00","DateTime UTC__precision":"0"}},{"title":{"Team1":"TSM","Team2":"Cloud9","DateTime UTC":"2023-07-20 22:00:00","DateTime UTC__precision":"0"}}]}
+{
+    "cargoquery": [
+        {
+            "title": {
+                "Team1": "100 Thieves",
+                "Team2": "Golden Guardians",
+                "DateTime UTC": "2023-07-21 23:00:00",
+                "DateTime UTC__precision": "0"
+            }
+        },
+        {
+            "title": {
+                "Team1": "100 Thieves",
+                "Team2": "NRG",
+                "DateTime UTC": "2023-07-20 23:00:00",
+                "DateTime UTC__precision": "0"
+            }
+        },
+        {
+            "title": {
+                "Team1": "Cloud9",
+                "Team2": "FlyQuest",
+                "DateTime UTC": "2023-07-22 01:00:00",
+                "DateTime UTC__precision": "0"
+            }
+        },
+        {
+            "title": {
+                "Team1": "Dignitas",
+                "Team2": "100 Thieves",
+                "DateTime UTC": "2023-07-20 01:00:00",
+                "DateTime UTC__precision": "0"
+            }
+        },
+        {
+            "title": {
+                "Team1": "Evil Geniuses.NA",
+                "Team2": "Team Liquid",
+                "DateTime UTC": "2023-07-21 00:00:00",
+                "DateTime UTC__precision": "0"
+            }
+        },
+        {
+            "title": {
+                "Team1": "Evil Geniuses.NA",
+                "Team2": "TSM",
+                "DateTime UTC": "2023-07-21 22:00:00",
+                "DateTime UTC__precision": "0"
+            }
+        },
+        {
+            "title": {
+                "Team1": "FlyQuest",
+                "Team2": "Immortals",
+                "DateTime UTC": "2023-07-20 21:00:00",
+                "DateTime UTC__precision": "0"
+            }
+        },
+        {
+            "title": {
+                "Team1": "FlyQuest",
+                "Team2": "TSM",
+                "DateTime UTC": "2023-07-19 23:00:00",
+                "DateTime UTC__precision": "0"
+            }
+        },
+        {
+            "title": {
+                "Team1": "Golden Guardians",
+                "Team2": "Dignitas",
+                "DateTime UTC": "2023-07-21 01:00:00",
+                "DateTime UTC__precision": "0"
+            }
+        },
+        {
+            "title": {
+                "Team1": "Golden Guardians",
+                "Team2": "Team Liquid",
+                "DateTime UTC": "2023-07-19 22:00:00",
+                "DateTime UTC__precision": "0"
+            }
+        },
+        {
+            "title": {
+                "Team1": "Immortals",
+                "Team2": "Evil Geniuses.NA",
+                "DateTime UTC": "2023-07-19 21:00:00",
+                "DateTime UTC__precision": "0"
+            }
+        },
+        {
+            "title": {
+                "Team1": "Immortals",
+                "Team2": "NRG",
+                "DateTime UTC": "2023-07-21 21:00:00",
+                "DateTime UTC__precision": "0"
+            }
+        },
+        {
+            "title": {
+                "Team1": "NRG",
+                "Team2": "Cloud9",
+                "DateTime UTC": "2023-07-20 00:00:00",
+                "DateTime UTC__precision": "0"
+            }
+        },
+        {
+            "title": {
+                "Team1": "Team Liquid",
+                "Team2": "Dignitas",
+                "DateTime UTC": "2023-07-22 00:00:00",
+                "DateTime UTC__precision": "0"
+            }
+        },
+        {
+            "title": {
+                "Team1": "TSM",
+                "Team2": "Cloud9",
+                "DateTime UTC": "2023-07-20 22:00:00",
+                "DateTime UTC__precision": "0"
+            }
+        }
+    ]
+}

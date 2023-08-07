@@ -1,15 +1,14 @@
 import mongoose from 'mongoose'
 const { Schema } = mongoose
 
-const User = mongoose.model("User", new mongoose.Schema({
-    username: String,
-    records: [
-        {
-            matchId: Number,
-            vote: Boolean, 
-        }
-    ]
-}))
 
+const COLLECTION_NAME = 'USERS'
+
+export const UserSchema = new mongoose.Schema({
+    username: String,
+    records: [{ matchID: String, vote: String }]
+})
+
+const User = mongoose.model("User", UserSchema)
 
 export default User

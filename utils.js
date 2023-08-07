@@ -3,7 +3,17 @@ import fetch from 'node-fetch';
 import { verifyKey, MessageComponentTypes, ButtonStyleTypes } from 'discord-interactions';
 import teams from './teams.json' assert { type: 'json'};
 
-export function VerifyDiscordRequest(clientKey) {
+//My functions
+export function ansiFormat(message) {
+
+  let rtn = '```ansi\n'
+  message = message.replace('\u001b', '')
+  rtn += message + '\n```'
+
+  return rtn
+}
+
+export function verifyDiscordRequest(clientKey) {
   return function (req, res, buf, encoding) {
     const signature = req.get('X-Signature-Ed25519');
     const timestamp = req.get('X-Signature-Timestamp');
@@ -14,38 +24,6 @@ export function VerifyDiscordRequest(clientKey) {
       throw new Error('Bad request signature');
     }
   };
-}
-
-export async function InstallGlobalCommands(appId, commands) {
-  // API endpoint to overwrite global commands
-  const endpoint = `applications/${appId}/commands`;
-
-  try {
-    // This is calling the bulk overwrite endpoint: https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-global-application-commands
-    await DiscordRequest(endpoint, { method: 'PUT', body: commands });
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-// Simple method that returns a random emoji from list
-export function getRandomEmoji() {
-  const emojiList = ['🔵', '🔴'];
-  return emojiList[Math.floor(Math.random() * emojiList.length)];
-}
-
-export function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-//My functions
-export function ansiFormat(message) {
-
-  let rtn = '```ansi\n'
-  message = message.replace('\u001b', '')
-  rtn += message + '\n```'
-
-  return rtn
 }
 
 export const ESCAPE = '\u001b'
@@ -59,14 +37,12 @@ export async function DiscordRequest(endpoint, contents, method) {
     'Authorization': `Bot ${process.env.DISCORD_TOKEN}`
   }
 
-  console.log(headers)
-
   let protocol = {
     headers: headers,
     method: method,
   }
 
-  if (method == "POST") {
+  if (method == "POST" || method == 'PATCH') {
     protocol.body = JSON.stringify({
       content: contents.content,
       components: contents.components
@@ -85,13 +61,10 @@ export async function DiscordRequest(endpoint, contents, method) {
 
 
 const TEAMS_PER_REQUEST = 5
-const TEAM1_EMOJI = '🔵'
-const TEAM2_EMOJI = '🔴'
 
 export async function displayTeams(channel_id) {
 
   for (let key in teams.cargoquery) {
-    console.log(key)
 
     let team = teams.cargoquery[key].title
 
@@ -117,22 +90,22 @@ export async function displayTeams(channel_id) {
   }
 }
 
-function teamButtons(team) {
+export function teamButtons(team) {
 
-  let { Team1, Team2 } = team
+  let { Team1, Team2, MatchId} = team
   let components = [
     {
       type: MessageComponentTypes.ACTION_ROW,
       components: [
         {
           type: MessageComponentTypes.BUTTON,
-          custom_id: Team1,
+          custom_id: MatchId + ':1',
           label: Team1,
           style: ButtonStyleTypes.PRIMARY
         },
         {
           type: MessageComponentTypes.BUTTON,
-          custom_id: Team2,
+          custom_id: MatchId + ':2',
           label: Team2, 
           style: ButtonStyleTypes.DANGER
         }
@@ -145,8 +118,9 @@ function teamButtons(team) {
 
 
 
-function formatTeam(team) {
-  let { ['DateTime UTC']: DateTime_UTC, Team1, Team2 } = team
+export function formatTeam(team) {
+
+  let { ['DateTime UTC']: DateTime_UTC, Team1, Team2, MatchId } = team
   let dateTime_UTC = new Date(DateTime_UTC)
   let dateLocal = new Date()
   dateLocal.setTime(dateTime_UTC.getTime() - new Date().getTimezoneOffset())
