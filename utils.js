@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 import { verifyKey, MessageComponentTypes, ButtonStyleTypes } from 'discord-interactions';
 import teams from './teams.json' assert { type: 'json'};
 
-//My functions
+
 export function ansiFormat(message) {
 
   let rtn = '```ansi\n'
@@ -141,4 +141,25 @@ export function formatTeam(team) {
 
 
   return formattedTeam
+}
+
+export async function updatePredictions(match, channel_id, message_id) {
+
+  let team1 = []
+  let team2 = []
+
+  match.Votes.forEach(vote => vote.Team === match.Team1 ?
+    team1.push(vote.username) : team2.push(vote.username))
+
+  team1 = team1.join(', ')
+  team2 = team2.join(', ')
+
+  let buttons = teamButtons(match)
+
+  let message = {
+    content: "---\n" + match.Team1 + "\n" + team1 + "\n" + match.Team2 + "\n" + team2 + "\n---",
+    components: buttons
+  }
+
+  DiscordRequest(`channels/${channel_id}/messages/${message_id}`, message, 'PATCH')
 }

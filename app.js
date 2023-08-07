@@ -7,9 +7,9 @@ import {
   MessageComponentTypes,
   ButtonStyleTypes,
 } from 'discord-interactions';
-import { displayTeams, verifyDiscordRequest } from './utils.js';
+import { verifyDiscordRequest } from './utils.js';
 
-import { db_connect, db_log, db_makeVote, findMatchWinners, updateMatches } from './mongodb.js'
+import { db_connect, db_log, db_makeVote, findMatchWinners, updateMatches, updateDiscordMatchId } from './mongodb.js'
 import { setUp } from './Routes/setUp.js'
 import { makeVote } from './Routes/vote.js'
 
@@ -23,8 +23,8 @@ app.use(express.json({ verify: verifyDiscordRequest(process.env.PUBLIC_KEY) }))
 // Connect to the database.
 await db_connect()
 await updateMatches()
-findMatchWinners()
-
+await findMatchWinners()
+await updateDiscordMatchId()
 
 /**
  * Interactions endpoint URL where Discord will send HTTP requests

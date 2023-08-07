@@ -6,6 +6,7 @@ import Match from './Schema/MatchSchema.js'
 import Discord from './Schema/DiscordSchema.js'
 
 import {fandom_findMatchById, fandom_upComingMatches} from './fandomQuery.js'
+import {updatePredictions} from './utils.js'
 
 
 const DB_NAME = 'LeaguePredictions'
@@ -143,6 +144,53 @@ export async function updateMatches() {
             match.Winner = "TBD"
             await match.save()
         }
+    }
+}
+
+export async function updateDiscordMatchId() {
+
+    let discords = await Discord.find({})
+
+    for (let key in discords) {
+
+        let discord = discords[key]
+
+        console.log(discord.MatchId)
+
+        let match = await Match.findOne({MatchId: discord.MatchId})
+        
+
+        console.log(match)
+
+        // Winner not being null means match has been played.
+        if (match.Winner != null) {
+
+            match = await getUpcomingMatch()
+            console.log(recentMatch)
+
+            discord.MatchId = recentMatch.MatchId
+            updateMatch(match)
+
+            discord.save()
+
+        }
+
+        updatePredictions(match, discord.channel_id, discord.message_id)
+    }
+}
+
+// Called if match teams are TBD and tries to find the match up. 
+export async function updateMatch(match) {
+
+    if (match.Team1 == 'TBD' || match.Team2 == 'TBD') {
+
+        let fandom = await fandom_findMatchById(match.MatchId)
+
+        match.Team1 = fandom.Team1
+        match.Team2 = fandom.Team2
+        await match.save()
+
+        console.log(`Match: ${match.MatchId} updated.`)
     }
 }
 

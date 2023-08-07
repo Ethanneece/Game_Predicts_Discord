@@ -1,6 +1,6 @@
 import { InteractionResponseType } from 'discord-interactions'
 import { getUser, getDiscordByChannelId, getMatch, updateMatches } from '../mongodb.js'
-import { DiscordRequest } from '../utils.js'
+import { DiscordRequest, updatePredictions } from '../utils.js'
 
 export async function makeVote(req, res) {
 
@@ -62,22 +62,4 @@ export async function makeVote(req, res) {
         let app_id = req.body.application_id
         let result = await DiscordRequest(`webhooks/${app_id}/${token}/messages/@original`, null, 'DELETE')
     }, 5000)
-}
-
-async function updatePredictions(match, channel_id, message_id) {
-
-    let team1 = []
-    let team2 = []
-
-    match.Votes.forEach(vote => vote.Team === match.Team1 ?
-        team1.push(vote.username) : team2.push(vote.username))
-
-    team1 = team1.join(', ')
-    team2 = team2.join(', ')
-
-    let message = {
-        content: "---\n" + match.Team1 + "\n" + team1 + "\n" + match.Team2 + "\n" + team2 + "\n---"
-    }
-
-    DiscordRequest(`channels/${channel_id}/messages/${message_id}`, message, 'PATCH')
 }
